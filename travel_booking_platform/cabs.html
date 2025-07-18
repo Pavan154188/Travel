@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cabs - Travel Booking Platform</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('cab.jpg') no-repeat center center/cover;
+      backdrop-filter: blur(2px);
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+
+    nav ul li a.active,
+    nav ul li a:hover {
+      background-color: #00bcd4;
+    }
+
+    .login-btn {
+      background: #00bcd4;
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    main {
+      padding: 60px 20px;
+    }
+
+    .booking-section {
+      max-width: 1000px;
+      margin: auto;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      padding: 30px;
+    }
+
+    .booking-section h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .card {
+      background: #fff3e0;
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+    }
+
+    .card button {
+      background: #ff9800;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .card button:hover {
+      background: #e65100;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 99;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 30px;
+      border-radius: 10px;
+      width: 300px;
+      position: relative;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 15px;
+    }
+
+    .modal-content label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .modal-content input,
+    .modal-content select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .modal-content button {
+      width: 100%;
+      margin-top: 15px;
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .modal-content .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      color: #333;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Travel Booking</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Flights</a></li>
+        <li><a href="trains.html">Trains</a></li>
+        <li><a href="buses.html">Buses</a></li>
+        <li><a href="cabs.html" class="active">Cabs</a></li>
+      </ul>
+    </nav>
+    <button class="login-btn" onclick="openLoginModal()">Login</button>
+  </header>
+
+  <main>
+    <section class="booking-section">
+      <h2>Book Cabs</h2>
+      <div class="card">
+        <h3>Hyderabad → Airport</h3>
+        <p>Mini Cab | ₹499 | ETA: 15 mins</p>
+        <button>Book Now</button>
+      </div>
+      <div class="card">
+        <h3>Bangalore → Whitefield</h3>
+        <p>SUV | ₹899 | ETA: 20 mins</p>
+        <button>Book Now</button>
+      </div>
+      <div class="card">
+        <h3>Mumbai → Bandra</h3>
+        <p>Luxury Sedan | ₹1200 | ETA: 25 mins</p>
+        <button>Book Now</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Login Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeLoginModal()">&times;</span>
+      <h2>Login</h2>
+      <label for="country-code">Country Code</label>
+      <select id="country-code">
+        <option value="+91">🇮🇳 +91</option>
+        <option value="+1">🇺🇸 +1</option>
+        <option value="+44">🇬🇧 +44</option>
+      </select>
+      <label for="mobile-number">Mobile Number</label>
+      <input type="tel" id="mobile-number" placeholder="Enter 10-digit number" maxlength="10"/>
+      <button onclick="submitLogin()">Submit</button>
+    </div>
+  </div>
+
+  <script>
+    function openLoginModal() {
+      document.getElementById('loginModal').style.display = 'block';
+    }
+    function closeLoginModal() {
+      document.getElementById('loginModal').style.display = 'none';
+    }
+    function submitLogin() {
+      const mobile = document.getElementById('mobile-number').value;
+      if (mobile.length === 10) {
+        alert('OTP sent to ' + mobile);
+        closeLoginModal();
+      } else {
+        alert('Please enter a valid 10-digit number.');
+      }
+    }
+  </script>
+</body>
+</html>

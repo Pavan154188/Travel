@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flights - Travel Booking Platform</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: url('images/flights.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+    }
+    header {
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .login-btn {
+      background-color: #ff6600;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .flight-card {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      margin: 30px auto;
+      max-width: 700px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+      padding-left: 70px;
+      transition: transform 0.3s ease;
+    }
+    .flight-card:hover {
+      transform: scale(1.03);
+    }
+    .flight-card i {
+      font-size: 40px;
+      color: #007BFF;
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .flight-card h3 {
+      margin: 0;
+    }
+    .flight-card p {
+      margin: 5px 0;
+    }
+    .flight-card button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .flight-card button:hover {
+      background-color: #0056b3;
+    }
+    .booking-confirmation {
+      display: none;
+      background-color: rgba(0, 128, 0, 0.8);
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      max-width: 500px;
+      margin: 20px auto;
+      font-size: 18px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 350px;
+      height: 100%;
+      background: white;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.5);
+      transition: right 0.5s ease-in-out;
+      z-index: 999;
+    }
+    .modal.show {
+      right: 0;
+    }
+    .modal-content {
+      padding: 20px;
+    }
+    .modal-content .close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+    }
+    .modal-content h2 {
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Travel Booking Platform</div>
+    <nav>
+      <ul>
+        <li><a href="flights.html">Flights</a></li>
+        <li><a href="trains.html">Trains</a></li>
+        <li><a href="buses.html">Buses</a></li>
+        <li><a href="cabs.html">Cabs</a></li>
+        <li><a href="hotels.html">Hotels</a></li>
+        <li><a href="holidays.html">Holidays</a></li>
+      </ul>
+    </nav>
+    <button class="login-btn" onclick="openLoginModal()">Login</button>
+  </header>
+
+  <main>
+    <div class="flight-card">
+      <i class="fas fa-plane"></i>
+      <h3>Indigo Airlines</h3>
+      <p>Hyderabad → Delhi</p>
+      <p>Departure: 9:00 AM | Arrival: 11:30 AM</p>
+      <p>Price: ₹4,200</p>
+      <button onclick="bookFlight('Indigo Airlines - Hyderabad to Delhi')">Book Now</button>
+    </div>
+    <div class="flight-card">
+      <i class="fas fa-plane-departure"></i>
+      <h3>Air India</h3>
+      <p>Hyderabad → Mumbai</p>
+      <p>Departure: 1:00 PM | Arrival: 3:00 PM</p>
+      <p>Price: ₹3,750</p>
+      <button onclick="bookFlight('Air India - Hyderabad to Mumbai')">Book Now</button>
+    </div>
+
+    <div class="booking-confirmation" id="bookingMsg"></div>
+  </main>
+
+  <!-- Login Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeLoginModal()">&times;</span>
+      <h2>Login</h2>
+      <label for="country-code">Country Code</label>
+      <select id="country-code">
+        <option value="+91">🇮🇳 +91</option>
+        <option value="+1">🇺🇸 +1</option>
+        <option value="+44">🇬🇧 +44</option>
+      </select>
+      <label for="mobile-number">Mobile Number</label>
+      <input type="tel" id="mobile-number" placeholder="Enter 10-digit number" maxlength="10"/>
+      <button onclick="submitLogin()">Submit</button>
+    </div>
+  </div>
+
+  <script>
+    function openLoginModal() {
+      document.getElementById('loginModal').classList.add('show');
+    }
+    function closeLoginModal() {
+      document.getElementById('loginModal').classList.remove('show');
+    }
+    function submitLogin() {
+      alert('Login Submitted!');
+      closeLoginModal();
+    }
+    function bookFlight(flightName) {
+      const msg = document.getElementById('bookingMsg');
+      msg.textContent = `Successfully booked: ${flightName}`;
+      msg.style.display = 'block';
+      setTimeout(() => { msg.style.display = 'none'; }, 4000);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotels - Travel Booking Platform</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('images/hotels.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+    header {
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .hotel-listing {
+      background: rgba(255, 255, 255, 0.9);
+      margin: 30px auto;
+      max-width: 900px;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .hotel {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 15px;
+    }
+    .hotel img {
+      width: 150px;
+      height: 100px;
+      border-radius: 8px;
+      margin-right: 20px;
+    }
+    .hotel-details h3 {
+      margin: 0;
+    }
+    .hotel-details p {
+      margin: 5px 0;
+    }
+    .book-btn {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Travel Booking Platform</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="flights.html">Flights</a></li>
+        <li><a href="trains.html">Trains</a></li>
+        <li><a href="buses.html">Buses</a></li>
+        <li><a href="cabs.html">Cabs</a></li>
+        <li><a href="hotels.html">Hotels</a></li>
+        <li><a href="holidays.html">Holidays</a></li>
+      </ul>
+    </nav>
+    <button class="login-btn" onclick="openLoginModal()">Login</button>
+  </header>
+
+  <section class="hotel-listing">
+    <h2>Available Hotels</h2>
+
+    <div class="hotel">
+      <img src="images/hotel1.jpg" alt="Hotel One" />
+      <div class="hotel-details">
+        <h3>Hotel Sunshine</h3>
+        <p>Location: Hyderabad</p>
+        <p>Rating: ⭐⭐⭐⭐</p>
+        <button class="book-btn">Book Now</button>
+      </div>
+    </div>
+
+    <div class="hotel">
+      <img src="images/hotel2.jpg" alt="Hotel Two" />
+      <div class="hotel-details">
+        <h3>Urban Stay</h3>
+        <p>Location: Bangalore</p>
+        <p>Rating: ⭐⭐⭐</p>
+        <button class="book-btn">Book Now</button>
+      </div>
+    </div>
+
+    <div class="hotel">
+      <img src="images/hotel3.jpg" alt="Hotel Three" />
+      <div class="hotel-details">
+        <h3>Ocean View</h3>
+        <p>Location: Goa</p>
+        <p>Rating: ⭐⭐⭐⭐⭐</p>
+        <button class="book-btn">Book Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Login Modal -->
+  <div class="modal" id="loginModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);">
+    <div class="modal-content" style="background:white; margin:10% auto; padding:20px; width:300px; border-radius:10px; position:relative;">
+      <span class="close" onclick="closeLoginModal()" style="position:absolute; top:10px; right:15px; cursor:pointer; font-size:20px;">&times;</span>
+      <h2>Login</h2>
+      <label for="country-code">Country Code</label><br />
+      <select id="country-code">
+        <option value="+91">🇮🇳 +91</option>
+        <option value="+1">🇺🇸 +1</option>
+        <option value="+44">🇬🇧 +44</option>
+      </select><br /><br />
+      <label for="mobile-number">Mobile Number</label><br />
+      <input type="tel" id="mobile-number" placeholder="Enter 10-digit number" maxlength="10"/><br /><br />
+      <button onclick="submitLogin()">Submit</button>
+    </div>
+  </div>
+
+  <script>
+    function openLoginModal() {
+      document.getElementById('loginModal').style.display = 'block';
+    }
+    function closeLoginModal() {
+      document.getElementById('loginModal').style.display = 'none';
+    }
+    function submitLogin() {
+      const number = document.getElementById('mobile-number').value;
+      if (number.length === 10) {
+        alert('Login submitted!');
+        closeLoginModal();
+      } else {
+        alert('Enter a valid 10-digit mobile number');
+      }
+    }
+  </script>
+</body>
+</html>

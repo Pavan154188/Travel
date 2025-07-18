@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Travel Booking Platform</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('pk.jpeg') no-repeat center center/cover;
+      color: #fff;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #00bcd4;
+      animation: fadeInLeft 1s ease;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 1rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      font-weight: bold;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: #00bcd4;
+      color: #000;
+    }
+
+    .login-btn {
+      padding: 0.6rem 1.5rem;
+      background-color: #00bcd4;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #fff;
+      color: #00bcd4;
+    }
+
+    .welcome {
+      text-align: center;
+      padding: 4rem 2rem;
+      background-color: rgba(0, 0, 0, 0.6);
+      margin: 3rem;
+      border-radius: 16px;
+      animation: fadeInUp 1.5s ease;
+    }
+
+    .welcome h2 {
+      font-size: 3rem;
+      color: #ffffff;
+      margin-bottom: 1rem;
+    }
+
+    .welcome p {
+      font-size: 1.2rem;
+      color: #e0e0e0;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 350px;
+      width: 100%;
+      color: #000;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+      color: #007BFF;
+      text-align: center;
+    }
+
+    .modal-content input,
+    .modal-content select,
+    .modal-content button {
+      width: 100%;
+      margin-top: 0.5rem;
+      padding: 0.7rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .modal-content button {
+      background-color: #007BFF;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .modal-content button:hover {
+      background-color: #0056b3;
+    }
+
+    .close {
+      float: right;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #000;
+    }
+
+    /* Animations */
+    @keyframes fadeInLeft {
+      0% {opacity: 0; transform: translateX(-50px);}
+      100% {opacity: 1; transform: translateX(0);}
+    }
+
+    @keyframes fadeInUp {
+      0% {opacity: 0; transform: translateY(50px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo"><i class="fas fa-plane-departure"></i> Travel Booking</div>
+    <nav>
+      <ul>
+        <li><a href="flights.html"><i class="fas fa-plane"></i> Flights</a></li>
+        <li><a href="trains.html"><i class="fas fa-train"></i> Trains</a></li>
+        <li><a href="buses.html"><i class="fas fa-bus"></i> Buses</a></li>
+        <li><a href="cabs.html"><i class="fas fa-car-side"></i> Cabs</a></li>
+        <li><a href="hotels.html"><i class="fas fa-hotel"></i> Hotels</a></li>
+        <li><a href="holiday.html"><i class="fas fa-umbrella-beach"></i> Holidays</a></li>
+      </ul>
+    </nav>
+    <button class="login-btn" onclick="openLoginModal()">Login</button>
+  </header>
+
+  <main>
+    <section class="welcome">
+      <h2>Welcome to Travel Booking Platform</h2>
+      <p>Plan your next trip with ease — Flights, Hotels, Holidays, and more!</p>
+    </section>
+  </main>
+
+  <!-- Login Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeLoginModal()">&times;</span>
+      <h2>Login</h2>
+      <label for="country-code">Country Code</label>
+      <select id="country-code">
+        <option value="+91">🇮🇳 +91</option>
+        <option value="+1">🇺🇸 +1</option>
+        <option value="+44">🇬🇧 +44</option>
+      </select>
+      <label for="mobile-number">Mobile Number</label>
+      <input type="tel" id="mobile-number" placeholder="Enter 10-digit number" maxlength="10"/>
+      <button onclick="submitLogin()">Submit</button>
+    </div>
+  </div>
+
+  <script>
+    function openLoginModal() {
+      document.getElementById("loginModal").style.display = "flex";
+    }
+
+    function closeLoginModal() {
+      document.getElementById("loginModal").style.display = "none";
+    }
+
+    function submitLogin() {
+      const number = document.getElementById("mobile-number").value;
+      if (number.length === 10) {
+        alert("Login submitted!");
+        closeLoginModal();
+      } else {
+        alert("Enter a valid 10-digit number.");
+      }
+    }
+  </script>
+
+</body>
+</html>
